@@ -6,20 +6,30 @@ using System.Threading.Tasks;
 
 namespace GameOfHog
 {
-    internal class Player
+    public class Player
     {
-        internal string Name { get; set; }
-        internal int Score { get; set; }
+        private string Name { get; set; }
+        private int Score { get; set; }
 
-        Player(string name)
+        public Player(string name)
         {
             Name = name;
             Score = 0;
         }
 
-       void updateScore(int score)
+
+        public string GetPlayerName()
         {
-            Score = score;      
+            return Name; 
+        }
+
+        public int GetScore(Player player)
+        {
+            return player.Score;
+        }
+       public void UpdateScore(int score)
+        {
+            Score += score;      
         }
 
     }
