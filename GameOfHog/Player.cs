@@ -23,9 +23,9 @@ namespace GameOfHog
             return Name; 
         }
 
-        public int GetScore(Player player)
+        public int GetScore()
         {
-            return player.Score;
+            return Score;
         }
        public void UpdateScore(int score)
         {
