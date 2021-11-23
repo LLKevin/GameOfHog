@@ -27,3 +27,4 @@ C:\Users\XCannibal\Desktop\BASTION\Programming\GameOfHog\GameOfHog\obj\Debug\net
 C:\Users\XCannibal\Desktop\BASTION\Programming\GameOfHog\GameOfHog\obj\Debug\net6.0\ref\GameOfHog.dll
 C:\Users\XCannibal\Desktop\BASTION\Programming\GameOfHog\GameOfHog\obj\Debug\net6.0\GameOfHog.pdb
 C:\Users\XCannibal\Desktop\BASTION\Programming\GameOfHog\GameOfHog\obj\Debug\net6.0\GameOfHog.genruntimeconfig.cache
+C:\Users\XCannibal\Desktop\BASTION\Programming\GameOfHog\GameOfHog\obj\Debug\net6.0\GameOfHog.csproj.AssemblyReference.cache
