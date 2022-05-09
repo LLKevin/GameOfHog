@@ -15,7 +15,6 @@ namespace GameOfHog
 
             int[] diceRolls = new int[numberOfDices];
 
-
             for (int i = 0; i < numberOfDices; i++)
             {
                 var rand = new Random();

@@ -19,11 +19,13 @@ namespace GameOfHog
 
             bool playerWins = false;
             bool humanPlayerTurn = true;
+            int numberOfDiceToRoll = 0;
 
             Player[] players = new Player[2] { new Player(playerName), new Player("AiBot") };
 
             while (!playerWins)
             {
+                numberOfDiceToRoll = 0;
                 foreach(Player player in players)
                 {
                    if(player.GetScore() >= 100)
@@ -41,16 +43,31 @@ namespace GameOfHog
                 }
                 switch (humanPlayerTurn)
                 {
+
+                    // validate that a int is being used
+
                     case true:
                         //player
 
-                        Console.WriteLine("Enter the amount of dice you would like to roll between 1 - 10\n");
-                       int numberOfDiceToRoll = int.Parse(Console.ReadLine());
-                        //TODO: Validation --- possible create a utility class to deal with validation of input. --- minimum is 1 dice  &  maximum is 10 dice 
-                        Turn(gameDices, numberOfDiceToRoll,players[0]);
-                        // score points
+                        do
+                        {
+                            try
+                            {
+                                Console.WriteLine("Enter the amount of dice you would like to roll between 1 - 10\n");
+                                numberOfDiceToRoll = int.Parse(Console.ReadLine());
+                            }
+                            catch (FormatException ex)
+                            {
 
-                      
+                                Console.WriteLine("You must enter a number between 1 - 10\n");
+                            }
+                        }
+                        while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll >= 10);
+                        
+                        //TODO: Validation --- possible create a utility class to deal with validation of input. --- minimum is 1 dice  &  maximum is 10 dice 
+              
+
+                        Turn(gameDices, numberOfDiceToRoll,players[0]);
                         humanPlayerTurn = false;
                         break;
                     case false:
