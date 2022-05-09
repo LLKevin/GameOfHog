@@ -44,5 +44,10 @@ namespace GameOfHog
             Console.WriteLine("{0}\t\t\t{1}", players[1].GetPlayerName(), players[1].GetScore());
             Console.WriteLine("");
         }
+        public void DiceRollMenu(string playerName)
+        {
+            Console.WriteLine("{0}'s turn", playerName);
+            Console.WriteLine("Enter the amount of dice you would like to roll between 1 - 10");
+        }
     }
 }

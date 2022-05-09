@@ -8,51 +8,24 @@ namespace GameOfHog
 {
     public class GameLogic
     {
-     
 
-        //game rule set 
-        // each player 
+        Menu menu = new Menu();
+        Dice gameDices = new Dice();
         public void PlayGameAgainstAi(string playerName)
         { 
-            //create a dice for the game.
-            //
-            Dice gameDices = new Dice();
-
             bool playerWins = false;
             bool humanPlayerTurn = true;
             int numberOfDiceToRoll = 0;
 
             Player[] players = new Player[2] { new Player(playerName), new Player("AiBot") };
-            Menu menu = new Menu();
-
             while (!playerWins)
             {
-                numberOfDiceToRoll = 0;
-                foreach(Player player in players)
-                {
-                   if(player.GetScore() >= 100)
-                    {
-                        playerWins = true;
-                        Console.WriteLine("{0} has won with a score of {1}", player.GetPlayerName(), player.GetScore());
-                    }
-                }
+                playerWins = WinCheck(players);
                 menu.ScoreBoard(players);
                 switch (humanPlayerTurn)
                 {
                     case true:
-                        do
-                        {
-                            try
-                            {
-                                Console.WriteLine("Enter the amount of dice you would like to roll between 1 - 10\n");
-                                numberOfDiceToRoll = int.Parse(Console.ReadLine());
-                            }
-                            catch (FormatException ex)
-                            {
-                                Console.WriteLine("You must enter a number between 1 - 10\n");
-                            }
-                        }
-                        while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll > 10);
+                        numberOfDiceToRoll = DiceRoll(players[0].GetPlayerName());
                         Turn(gameDices, numberOfDiceToRoll,players[0]);
                         humanPlayerTurn = false;
                         break;
@@ -71,70 +44,63 @@ namespace GameOfHog
         {
             Player[] players = new Player[2] {new Player(player1),new Player(player2)};
             Dice gameDices = new Dice();
-            Menu menu = new Menu();
-
-            Console.WriteLine("{0} has won with a score of {1}", players[0].GetPlayerName(), players[0].GetScore()); 
-            Console.WriteLine("{0} has won with a score of {1}", players[1].GetPlayerName(), players[1].GetScore());
-
 
             bool playerWins = false;
             bool playerTurn = true;
             int numberOfDiceToRoll = 0;
             while (!playerWins)
             {
-                foreach (Player player in players)
-                {
-                    if (player.GetScore() >= 100)
-                    {
-                        playerWins = true;
-                        Console.WriteLine("{0} has won with a score of {1}", player.GetPlayerName(), player.GetScore());
-                    }
-                }
+                playerWins = WinCheck(players);
                 menu.ScoreBoard(players);
                 switch (playerTurn)
                 {
                     case true:
-                        do
-                        {
-                            try
-                            {
-                                Console.WriteLine("{0}'s turn", players[0].GetPlayerName());
-                                Console.WriteLine("Enter the amount of dice you would like to roll between 1 - 10\n");
-                                numberOfDiceToRoll = int.Parse(Console.ReadLine());
-                            }
-                            catch (FormatException ex)
-                            {
-                                Console.WriteLine("You must enter a number between 1 - 10\n");
-                            }
-                        }
-                        while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll > 10);
+                        numberOfDiceToRoll = DiceRoll(players[0].GetPlayerName());
                         Turn(gameDices, numberOfDiceToRoll, players[0]);
                         playerTurn = !playerTurn;
                         break;
                     case false:
-                        do
-                        {
-                            try
-                            {
-                                Console.WriteLine("{0}'s turn", players[1].GetPlayerName());
-                                Console.WriteLine("Enter the amount of dice you would like to roll between 1 - 10\n");
-                                numberOfDiceToRoll = int.Parse(Console.ReadLine());
-                            }
-                            catch (FormatException ex)
-                            {
-                                Console.WriteLine("You must enter a number between 1 - 10\n");
-                            }
-                        }
-                        while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll > 10);
+                        numberOfDiceToRoll = DiceRoll(players[1].GetPlayerName());
                         Turn(gameDices, numberOfDiceToRoll, players[1]);
                         playerTurn = !playerTurn;
                         break;
                 }
             }
         }
-
-        
-
+        public bool WinCheck(Player [] players)
+        {
+            bool playerWins = false;
+            foreach (Player player in players)
+            {
+                if (player.GetScore() >= 100)
+                {
+                    playerWins = true;
+                    Console.Clear();
+                    Console.WriteLine("{0} has won with a score of {1}", player.GetPlayerName(), player.GetScore());
+                    Console.WriteLine("Press any key to Continue...");
+                    Console.ReadKey();
+                }
+            }
+            return playerWins;
+        }
+        public int DiceRoll(string playerName)
+        {
+            int numberOfDiceToRoll = 0;
+            do
+            {
+                try
+                {
+                    menu.DiceRollMenu(playerName);
+                    numberOfDiceToRoll = int.Parse(Console.ReadLine());
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("You must enter a number between 1 - 10\n");
+                }
+            }
+            while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll > 10);
+            return numberOfDiceToRoll;
+        }
 
         //1. check if any of the dice(s) have rolled a 1
         //1.1 if so, the player scores only 1 point  --- Sow Sad
