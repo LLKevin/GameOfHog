@@ -11,6 +11,7 @@ namespace GameOfHog
 
        public void MainMenu()
         {
+            Console.Clear();
             Console.WriteLine("----------------------Main Menu------------------------");
             Console.WriteLine("Press 1 to play game aganist ai");
             Console.WriteLine("Press 2 to play game aganist human");
@@ -28,6 +29,12 @@ namespace GameOfHog
                 return false;
             }
             return true;
+        }
+        public void RuleMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("In Hog, two players alternate turns trying to be the first to end a turn with at least 100 points.\n" +
+                              "On each turn, the current player can select a number of dice to roll, up to 10.\nThe player's score is the sum of the dice outcome");
         }
     }
 }

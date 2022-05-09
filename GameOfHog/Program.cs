@@ -60,6 +60,10 @@ namespace Company.ConsoleApplication1
                         } while (!isNameValid);
                         newGame.PlayGameAgainstPlayer(player1Name, player2Name);
                         break;
+                    case 3:
+                        menu.RuleMenu();
+                        Console.ReadKey();
+                        break;
                 }
             }
         }
