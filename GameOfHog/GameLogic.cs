@@ -43,12 +43,7 @@ namespace GameOfHog
                 }
                 switch (humanPlayerTurn)
                 {
-
-                    // validate that a int is being used
-
                     case true:
-                        //player
-
                         do
                         {
                             try
@@ -58,14 +53,12 @@ namespace GameOfHog
                             }
                             catch (FormatException ex)
                             {
-
                                 Console.WriteLine("You must enter a number between 1 - 10\n");
                             }
                         }
-                        while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll >= 10);
+                        while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll > 10);
                         
                         //TODO: Validation --- possible create a utility class to deal with validation of input. --- minimum is 1 dice  &  maximum is 10 dice 
-              
 
                         Turn(gameDices, numberOfDiceToRoll,players[0]);
                         humanPlayerTurn = false;
@@ -75,12 +68,20 @@ namespace GameOfHog
                         //ai 
                         var randomDiceSelector = new Random();
                         Turn(gameDices, randomDiceSelector.Next(1,10), players[1]);
-                      
                         humanPlayerTurn = true;
                         break;
                 }
             }
         }
+
+        public void PlayGameAgainstPlayer(string player1, string player2)
+        {
+            Player[] players = new Player[2] {new Player(player1),new Player(player2)};
+            Console.WriteLine("{0} has won with a score of {1}", players[0].GetPlayerName(), players[0].GetScore()); 
+            Console.WriteLine("{0} has won with a score of {1}", players[1].GetPlayerName(), players[1].GetScore());
+        }
+    
+
         //1. check if any of the dice(s) have rolled a 1
         //1.1 if so, the player scores only 1 point  --- Sow Sad
         //1.2 else, the player scores the sum of the roll dices
@@ -91,9 +92,9 @@ namespace GameOfHog
 
         public void Turn(Dice dice, int numberOfDice, Player player)
         {
-            StringBuilder rollResult = new StringBuilder();
+           StringBuilder rollResult = new StringBuilder();
            int[] rolls =  dice.Roll(numberOfDice);
-            int pointCounter = 0;
+           int pointCounter = 0;
 
             // display what was rolled
             foreach(int roll in rolls)

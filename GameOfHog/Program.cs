@@ -10,45 +10,57 @@ namespace Company.ConsoleApplication1
             int selection = 0;
             string playerName = "";
             bool validMenuSelection = false;
-
-            while (selection != 3)
+            bool isNameValid = false;
+            GameLogic newGame = new GameLogic();
+            Menu menu = new Menu();
+            while (selection != 4)
             {
-
-                Console.WriteLine("----Selection----\n" +
-                    " Press 1 to play game aganist ai \n" +
-                    " Press 2 to play game aganist human \n" +
-                    " Press 3 to exit the game\n");
-
-                  validMenuSelection = int.TryParse(Console.ReadLine(), out selection);
-
+                menu.MainMenu();
+                validMenuSelection = int.TryParse(Console.ReadLine(), out selection);
                 if (validMenuSelection == false)
                 {
                     Console.Clear();
                     Console.WriteLine("You must enter a number to select from the menu\n");
                 }
-
                 switch (selection)
                 {
                     case 1:
-                        GameLogic newGame = new GameLogic();
-
-                        // ask for a player name
-                        Console.WriteLine("What do you want your player to be named?\n");
-                        playerName = Console.ReadLine();
-
-                        while (string.IsNullOrEmpty(playerName)) {
-                            Console.Clear();
-                            Console.WriteLine("You must enter a name\n");
-                            Console.WriteLine("What do you want your player to be named?\n");
+                        newGame = new GameLogic();
+                        isNameValid = false;
+                        Console.WriteLine("What do you want your player to be named?");
+                        do
+                        {
                             playerName = Console.ReadLine();
+                            isNameValid = menu.playerNameErrorMenu(playerName);
                         }
-
-
+                        while (!isNameValid);
                         newGame.PlayGameAgainstAi(playerName);
                         break;
-                }
+                    case 2:
+                        newGame = new GameLogic();
+                        isNameValid = false;
+                        string player1Name = "";
+                        string player2Name = "";
+                        Console.WriteLine("What enter the number for the first player?");
+                        do
+                        {
+                           player1Name = Console.ReadLine();
+                           isNameValid = menu.playerNameErrorMenu(player1Name);
 
-                //Todo: separate the menus into their own class.
+                        } while (!isNameValid);
+
+                        isNameValid = false;
+                        Console.Clear();
+                        Console.WriteLine("What enter the number for the second player?");
+                        do
+                        {
+                          player2Name = Console.ReadLine();
+                          isNameValid = menu.playerNameErrorMenu(player2Name);
+
+                        } while (!isNameValid);
+                        newGame.PlayGameAgainstPlayer(player1Name, player2Name);
+                        break;
+                }
             }
         }
     }
