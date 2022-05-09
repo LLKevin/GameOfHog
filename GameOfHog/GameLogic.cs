@@ -22,6 +22,7 @@ namespace GameOfHog
             int numberOfDiceToRoll = 0;
 
             Player[] players = new Player[2] { new Player(playerName), new Player("AiBot") };
+            Menu menu = new Menu();
 
             while (!playerWins)
             {
@@ -34,13 +35,8 @@ namespace GameOfHog
                         Console.WriteLine("{0} has won with a score of {1}", player.GetPlayerName(), player.GetScore());
                        
                     }
-                    else
-                    {
-                        Console.WriteLine("-------------------------------");
-                        Console.WriteLine("{0} Score is: {1}", player.GetPlayerName(), player.GetScore());
-                        Console.WriteLine("--------------------------------\n");
-                    }
                 }
+                menu.ScoreBoard(players);
                 switch (humanPlayerTurn)
                 {
                     case true:
@@ -57,9 +53,6 @@ namespace GameOfHog
                             }
                         }
                         while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll > 10);
-                        
-                        //TODO: Validation --- possible create a utility class to deal with validation of input. --- minimum is 1 dice  &  maximum is 10 dice 
-
                         Turn(gameDices, numberOfDiceToRoll,players[0]);
                         humanPlayerTurn = false;
                         break;
@@ -77,10 +70,22 @@ namespace GameOfHog
         public void PlayGameAgainstPlayer(string player1, string player2)
         {
             Player[] players = new Player[2] {new Player(player1),new Player(player2)};
+            Dice gameDices = new Dice();
+
             Console.WriteLine("{0} has won with a score of {1}", players[0].GetPlayerName(), players[0].GetScore()); 
             Console.WriteLine("{0} has won with a score of {1}", players[1].GetPlayerName(), players[1].GetScore());
+
+
+            bool playerWins = false;
+            bool humanPlayerTurn = true;
+            int numberOfDiceToRoll = 0;
+            while (!playerWins)
+            {
+
+            }
+
         }
-    
+
 
         //1. check if any of the dice(s) have rolled a 1
         //1.1 if so, the player scores only 1 point  --- Sow Sad
@@ -113,7 +118,7 @@ namespace GameOfHog
                 ScorePoints(player,pointCounter);
             }
            
-            Console.WriteLine("{0} rolled was: {1} with a Score of {2}\n", player.GetPlayerName(), rollResult, pointCounter);
+            Console.WriteLine("{0} rolled {1} dice(s) was: {2} with a Score of {3}\n", player.GetPlayerName(),numberOfDice, rollResult, pointCounter);
         }
 
 
