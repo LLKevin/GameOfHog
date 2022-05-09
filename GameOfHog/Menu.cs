@@ -37,7 +37,7 @@ namespace GameOfHog
         }
         public void ScoreBoard(Player[] players)
         {
-            Console.WriteLine("--------------------------------\n");
+            Console.WriteLine("--------------Scoreboard------------------\n");
             Console.WriteLine("Player's Name\t\tScore");
             Console.WriteLine("--------------------------------\n");
             Console.WriteLine("{0}\t\t\t{1}", players[0].GetPlayerName(), players[0].GetScore()); 

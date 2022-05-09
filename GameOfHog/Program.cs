@@ -7,12 +7,14 @@ namespace Company.ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            int selection = 0;
-            string playerName = "";
-            bool validMenuSelection = false;
-            bool isNameValid = false;
             GameLogic newGame = new GameLogic();
             Menu menu = new Menu();
+            int selection = 0;
+            bool validMenuSelection = false;
+            bool isNameValid = false;
+            string player1Name = "";
+            string player2Name = "";
+
             while (selection != 4)
             {
                 menu.MainMenu();
@@ -26,21 +28,17 @@ namespace Company.ConsoleApplication1
                 {
                     case 1:
                         newGame = new GameLogic();
-                        isNameValid = false;
                         Console.WriteLine("What do you want your player to be named?");
                         do
                         {
-                            playerName = Console.ReadLine();
-                            isNameValid = menu.playerNameErrorMenu(playerName);
+                            player1Name = Console.ReadLine();
+                            isNameValid = menu.playerNameErrorMenu(player1Name);
                         }
                         while (!isNameValid);
-                        newGame.PlayGameAgainstAi(playerName);
+                        newGame.PlayGameAgainstAi(player1Name);
                         break;
                     case 2:
-                        newGame = new GameLogic();
-                        isNameValid = false;
-                        string player1Name = "";
-                        string player2Name = "";
+                        newGame = new GameLogic();                      
                         Console.WriteLine("What enter the number for the first player?");
                         do
                         {
@@ -49,7 +47,6 @@ namespace Company.ConsoleApplication1
 
                         } while (!isNameValid);
 
-                        isNameValid = false;
                         Console.Clear();
                         Console.WriteLine("What enter the number for the second player?");
                         do
