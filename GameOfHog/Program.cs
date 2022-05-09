@@ -9,6 +9,8 @@ namespace Company.ConsoleApplication1
         {
             GameLogic newGame = new GameLogic();
             Menu menu = new Menu();
+            Dice gameDices = new Dice();
+
             int selection = 0;
             bool validMenuSelection = false;
             bool isNameValid = false;
@@ -35,7 +37,7 @@ namespace Company.ConsoleApplication1
                             isNameValid = menu.playerNameErrorMenu(player1Name);
                         }
                         while (!isNameValid);
-                        newGame.PlayGameAgainstAi(player1Name);
+                        newGame.PlayGameAgainstAi(player1Name, gameDices, menu);
                         break;
                     case 2:
                         newGame = new GameLogic();                      
@@ -55,7 +57,7 @@ namespace Company.ConsoleApplication1
                           isNameValid = menu.playerNameErrorMenu(player2Name);
 
                         } while (!isNameValid);
-                        newGame.PlayGameAgainstPlayer(player1Name, player2Name);
+                        newGame.PlayGameAgainstPlayer(player1Name, player2Name,gameDices, menu);
                         break;
                     case 3:
                         menu.RuleMenu();

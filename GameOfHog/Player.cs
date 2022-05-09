@@ -8,28 +8,27 @@ namespace GameOfHog
 {
     public class Player
     {
-        private string Name { get; set; }
-        private int Score { get; set; }
+        private string name { get; set; }
+        private int score { get; set; }
 
         public Player(string name)
         {
-            Name = name;
-            Score = 0;
+            this.name = name;
+            score = 0;
         }
-
 
         public string GetPlayerName()
         {
-            return Name; 
+            return name; 
         }
 
         public int GetScore()
         {
-            return Score;
+            return score;
         }
        public void UpdateScore(int score)
         {
-            Score += score;      
+            this.score += score;      
         }
 
     }

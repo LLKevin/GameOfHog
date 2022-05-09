@@ -8,10 +8,7 @@ namespace GameOfHog
 {
     public class GameLogic
     {
-
-        Menu menu = new Menu();
-        Dice gameDices = new Dice();
-        public void PlayGameAgainstAi(string playerName)
+        public void PlayGameAgainstAi(string playerName, Dice gameDices, Menu menu)
         { 
             bool playerWins = false;
             bool humanPlayerTurn = true;
@@ -25,7 +22,7 @@ namespace GameOfHog
                 switch (humanPlayerTurn)
                 {
                     case true:
-                        numberOfDiceToRoll = DiceRoll(players[0].GetPlayerName());
+                        numberOfDiceToRoll = DiceRoll(players[0].GetPlayerName(),menu);
                         Turn(gameDices, numberOfDiceToRoll,players[0]);
                         humanPlayerTurn = false;
                         break;
@@ -40,10 +37,10 @@ namespace GameOfHog
             }
         }
 
-        public void PlayGameAgainstPlayer(string player1, string player2)
+        public void PlayGameAgainstPlayer(string player1, string player2, Dice gameDices, Menu menu)
         {
+
             Player[] players = new Player[2] {new Player(player1),new Player(player2)};
-            Dice gameDices = new Dice();
 
             bool playerWins = false;
             bool playerTurn = true;
@@ -55,12 +52,12 @@ namespace GameOfHog
                 switch (playerTurn)
                 {
                     case true:
-                        numberOfDiceToRoll = DiceRoll(players[0].GetPlayerName());
+                        numberOfDiceToRoll = DiceRoll(players[0].GetPlayerName(), menu);
                         Turn(gameDices, numberOfDiceToRoll, players[0]);
                         playerTurn = !playerTurn;
                         break;
                     case false:
-                        numberOfDiceToRoll = DiceRoll(players[1].GetPlayerName());
+                        numberOfDiceToRoll = DiceRoll(players[1].GetPlayerName(), menu);
                         Turn(gameDices, numberOfDiceToRoll, players[1]);
                         playerTurn = !playerTurn;
                         break;
@@ -83,7 +80,7 @@ namespace GameOfHog
             }
             return playerWins;
         }
-        public int DiceRoll(string playerName)
+        public int DiceRoll(string playerName, Menu menu)
         {
             int numberOfDiceToRoll = 0;
             do
@@ -95,21 +92,12 @@ namespace GameOfHog
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("You must enter a number between 1 - 10\n");
+                    Console.WriteLine("You must enter a number between 1 - 10");
                 }
             }
             while (numberOfDiceToRoll <= 0 || numberOfDiceToRoll > 10);
             return numberOfDiceToRoll;
         }
-
-        //1. check if any of the dice(s) have rolled a 1
-        //1.1 if so, the player scores only 1 point  --- Sow Sad
-        //1.2 else, the player scores the sum of the roll dices
-        //2. The player that gets to at least 100 points first, wins. 
-
-        //Stretch goal : To allow the player to customized rule sets
-
-
         public void Turn(Dice dice, int numberOfDice, Player player)
         {
            StringBuilder rollResult = new StringBuilder();
@@ -135,8 +123,6 @@ namespace GameOfHog
            
             Console.WriteLine("{0} rolled {1} dice(s) was: {2} with a Score of {3}\n", player.GetPlayerName(),numberOfDice, rollResult, pointCounter);
         }
-
-
         public void ScorePoints(Player player, int pointsScored)
         {
             player.UpdateScore(pointsScored);
